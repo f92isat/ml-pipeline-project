@@ -1,0 +1,36 @@
+# Configuración del Pipeline de ML - Heart Disease Dataset
+
+data:
+  raw_path: "data/heart.csv"
+  test_size: 0.2
+  random_state: 42
+
+preprocessing:
+  scale_features: true
+  handle_missing: "drop"
+
+model:
+  type: "xgboost"
+  params:
+    max_depth: 4
+    learning_rate: 0.05
+    n_estimators: 150
+    random_state: 42
+    eval_metric: 'logloss'
+
+mlflow:
+  experiment_name: "heart-disease-prediction"
+  tracking_uri: "file:./mlruns"
+  registered_model_name: "heart-disease-model"
+
+evaluation:
+  metrics:
+    - "accuracy"
+    - "f1_score"
+    - "roc_auc"
+
+dataset_info:
+  name: "Heart Disease UCI"
+  source: "UCI Machine Learning Repository"
+  task: "binary_classification"
+  target_description: "0=No disease, 1-4=Disease present"
